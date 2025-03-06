@@ -1,0 +1,50 @@
+<div class="container">
+    <h2>{{ idProjeto ? 'Editar Projeto' : 'Cadastrar Projeto' }}</h2>
+    
+    <form [formGroup]="projetoForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="projeto" class="form-label">Nome do Projeto</label>
+        <input id="projeto" type="text" class="form-control" formControlName="projeto">
+      </div>
+  
+      <div class="mb-3">
+        <label for="coordenador" class="form-label">Coordenador</label>
+        <input id="coordenador" type="text" class="form-control" formControlName="coordenador">
+      </div>
+  
+      <div class="mb-3">
+        <label for="id_financiador" class="form-label">Financiador</label>
+        <input id="id_financiador" type="number" class="form-control" formControlName="id_financiador">
+      </div>
+  
+      <div class="mb-3">
+        <label for="id_area_tecnologica" class="form-label">Área Tecnológica</label>
+        <input id="id_area_tecnologica" type="number" class="form-control" formControlName="id_area_tecnologica">
+      </div>
+  
+      <div class="mb-3">
+        <label for="inicio_vigencia" class="form-label">Início Vigência</label>
+        <input id="inicio_vigencia" type="date" class="form-control" formControlName="inicio_vigencia">
+      </div>
+  
+      <div class="mb-3">
+        <label for="fim_vigencia" class="form-label">Fim Vigência</label>
+        <input id="fim_vigencia" type="date" class="form-control" formControlName="fim_vigencia">
+      </div>
+  
+      <div class="mb-3">
+        <label for="valor" class="form-label">Valor</label>
+        <input id="valor" type="number" class="form-control" formControlName="valor">
+      </div>
+  
+      <div class="mb-3 form-check">
+        <input id="ativo" type="checkbox" class="form-check-input" formControlName="ativo">
+        <label for="ativo" class="form-check-label">Ativo</label>
+      </div>
+  
+      <button type="submit" class="btn btn-success">
+        {{ idProjeto ? 'Atualizar' : 'Cadastrar' }}
+      </button>
+    </form>
+  </div>
+  

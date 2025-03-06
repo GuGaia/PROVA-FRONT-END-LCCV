@@ -9,7 +9,7 @@ import { Projeto } from '../../models/projeto.model';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './detalhes-projeto.component.html',
-  styleUrls: ['./detalhes-projeto.component.scss']
+  styleUrl: './detalhes-projeto.component.css'
 })
 export class DetalhesProjetoComponent implements OnInit {
   projeto!: Projeto;
@@ -20,7 +20,7 @@ export class DetalhesProjetoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = Number(this.route.snapshot.paramMap.get('id_projeto'));
     if (id) {
       this.projetoService.visualizarProjeto(id).subscribe((dados) => {
         this.projeto = dados;
