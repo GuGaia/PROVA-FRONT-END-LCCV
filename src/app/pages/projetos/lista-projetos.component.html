@@ -1,0 +1,33 @@
+<div class="container">
+  <h2>Lista de Projetos</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Coordenador</th>
+        <th>Início</th>
+        <th>Fim</th>
+        <th>Valor</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let projeto of projetos">
+        <td>{{ projeto.projeto }}</td>
+        <td>{{ projeto.coordenador }}</td>
+        <td>{{ projeto.inicio_vigencia | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ projeto.fim_vigencia | date: 'dd/MM/yyyy' }}</td>
+        <td>R$ {{ projeto.valor | number:'1.2-2' }}</td>
+        <td>
+          <span [class.text-success]="projeto.ativo" [class.text-danger]="!projeto.ativo">
+            {{ projeto.ativo ? 'Ativo' : 'Inativo' }}
+          </span>
+        </td>
+        <td>
+          <a [routerLink]="['/projeto', projeto.id_projeto]" class="btn btn-primary btn-sm">Detalhes</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

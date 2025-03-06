@@ -1,9 +1,12 @@
 export interface Projeto {
-    id: number;
-    nome: string;
-    descricao: string;
-    ativo: boolean;
-    financiador: string;
-    areaTecnologica: string;
-    dataCriacao: Date;
-}
+    id_projeto: number;  
+    projeto: string;  
+    id_financiador: number;  
+    id_area_tecnologica: number;
+    coordenador: string;  
+    ativo: boolean; 
+    inicio_vigencia: Date;  
+    fim_vigencia: Date; 
+    valor: number; 
+  }
+  
