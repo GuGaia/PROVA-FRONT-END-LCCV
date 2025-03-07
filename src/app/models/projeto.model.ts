@@ -5,7 +5,7 @@ export interface Projeto {
     id_area_tecnologica: number;
     coordenador: string;  
     ativo: boolean; 
-    inicio_vigencia: Date;  
-    fim_vigencia: Date;  
+    inicio_vigencia: string | Date;  
+    fim_vigencia: string | Date;  
   }
   

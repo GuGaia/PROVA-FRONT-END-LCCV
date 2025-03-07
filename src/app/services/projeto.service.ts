@@ -17,7 +17,7 @@ export class ProjetoService {
   visualizarProjeto(id: number): Observable<Projeto> {
     return this.http.get<Projeto>(`${this.apiUrl}/${id}/visualizar/`);
   }
-  cadastrarProjeto(projeto: Projeto): Observable<Projeto> {
+  cadastrarProjeto(projeto: Omit<Projeto, 'id_projeto'>): Observable<Projeto> {
     return this.http.post<Projeto>(`${this.apiUrl}/cadastrar/`, projeto);
   }
   editarProjeto(id: number, projeto: Partial<Projeto>): Observable<Projeto> {

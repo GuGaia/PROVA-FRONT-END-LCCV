@@ -1,14 +1,34 @@
-<div class="container">
+<div class="container" *ngIf="!carregando && projeto; else carregandoTemplate">
   <h2>Detalhes do Projeto</h2>
-  <p><strong>Nome:</strong> {{ projeto.projeto }}</p>
-  <p><strong>Coordenador:</strong> {{ projeto.coordenador }}</p>
-  <p><strong>Financiador:</strong> {{ projeto.id_financiador }}</p>
-  <p><strong>Área Tecnológica:</strong> {{ projeto.id_area_tecnologica }}</p>
-  <p><strong>Início:</strong> {{ projeto.inicio_vigencia | date: 'dd/MM/yyyy' }}</p>
-  <p><strong>Fim:</strong> {{ projeto.fim_vigencia | date: 'dd/MM/yyyy' }}</p>
-  <p><strong>Status:</strong> 
-    <span [class.text-success]="projeto.ativo" [class.text-danger]="!projeto.ativo">
-      {{ projeto.ativo ? 'Ativo' : 'Inativo' }}
-    </span>
-  </p>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ projeto.projeto }}</h5>
+      <p><strong>Coordenador:</strong> {{ projeto.coordenador }}</p>
+      <p><strong>Financiador:</strong> {{ projeto.id_financiador }}</p>
+      <p><strong>Área Tecnológica:</strong> {{ projeto.id_area_tecnologica }}</p>
+      <p><strong>Início da Vigência:</strong> {{ projeto.inicio_vigencia | date: 'dd/MM/yyyy' }}</p>
+      <p><strong>Fim da Vigência:</strong> {{ projeto.fim_vigencia | date: 'dd/MM/yyyy' }}</p>
+      <p>
+        <strong>Status:</strong>
+        <span [class.text-success]="projeto.ativo" [class.text-danger]="!projeto.ativo">
+          {{ projeto.ativo ? 'Ativo' : 'Inativo' }}
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <button class="btn btn-primary mt-3" (click)="voltar()">Voltar</button>
+</div>
+
+<!-- Template de carregamento -->
+<ng-template #carregandoTemplate>
+  <div class="container text-center">
+    <p>Carregando...</p>
+  </div>
+</ng-template>
+
+<!-- Exibir erro caso aconteça -->
+<div *ngIf="erro" class="alert alert-danger">
+  {{ erro }}
 </div>

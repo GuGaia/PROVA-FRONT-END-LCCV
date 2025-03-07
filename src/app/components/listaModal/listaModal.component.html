@@ -1,6 +1,11 @@
 <div *ngIf="exibirResultados" class="modal-overlay">
   <div class="modal-content">
     <h3>Resultados da Pesquisa</h3>
+    <div class="text-end">
+      <button class="btn btn-primary mb-2" (click)="cadastrarProjeto()">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -20,16 +25,16 @@
           </td>
           <td>{{ projeto.inicio_vigencia | date: 'dd/MM/yyyy' }} - {{ projeto.fim_vigencia | date: 'dd/MM/yyyy' }}</td>
           <td>
-            <button class="btn btn-sm btn-info" (click)="visualizarProjeto(projeto.id_projeto)">
+            <button class="btn btn-sm btn-info" (click)="visualizarProjeto(projeto.id_projeto!)">
               <i class="fas fa-search"></i>
             </button>
-            <button class="btn btn-sm btn-warning" (click)="editarProjeto(projeto.id_projeto)">
+            <button class="btn btn-sm btn-warning" (click)="editarProjeto(projeto.id_projeto!)">
               <i class="fas fa-pencil-alt"></i>
             </button>
-            <button class="btn btn-sm btn-success" (click)="ativarProjeto(projeto.id_projeto)" [disabled]="projeto.ativo">
+            <button class="btn btn-sm btn-success" (click)="ativarProjeto(projeto.id_projeto!)" [disabled]="projeto.ativo">
               <i class="fas fa-check"></i>
             </button>
-            <button class="btn btn-sm btn-danger" (click)="inativarProjeto(projeto.id_projeto)" [disabled]="!projeto.ativo">
+            <button class="btn btn-sm btn-danger" (click)="inativarProjeto(projeto.id_projeto!)" [disabled]="!projeto.ativo">
               <i class="fas fa-times"></i>
             </button>
           </td>

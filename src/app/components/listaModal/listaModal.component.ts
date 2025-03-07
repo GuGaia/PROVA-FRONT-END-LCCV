@@ -57,5 +57,8 @@ export class ListaModal {
       projeto.id_projeto === id ? { ...projeto, ativo: !projeto.ativo } : projeto
     );
   }
+  cadastrarProjeto(): void {
+    this.router.navigate(['/projeto/cadastrar']);
+  }
 }
 

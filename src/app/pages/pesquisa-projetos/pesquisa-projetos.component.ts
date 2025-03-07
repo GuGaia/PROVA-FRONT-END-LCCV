@@ -42,17 +42,11 @@ export class PesquisaProjetosComponent implements OnInit {
 
   carregarProjetos(): void {
     this.projetoService.listarProjetos().subscribe((dados) => {
-      this.projetos = [];
-      dados.forEach(projetoResumo => {
-        this.projetoService.visualizarProjeto(projetoResumo.id_projeto).subscribe((projetoDetalhado) => {
-          this.projetos.push(projetoDetalhado);
-          this.projetosFiltrados = [...this.projetos];
-        });
-      });
+      this.projetos = [...dados];
+      this.projetosFiltrados = [...dados]; 
     });
   }
   
-
   filtrarProjetos(): void {
     const filtros = this.pesquisaForm.value;
     const ativoBoolean = filtros.ativo === 'true' ? true : filtros.ativo === 'false' ? false : null;
@@ -60,9 +54,6 @@ export class PesquisaProjetosComponent implements OnInit {
     this.projetosFiltrados = this.projetos.filter(projeto => {
       return (
         (!filtros.projeto || projeto.projeto.toLowerCase().includes(filtros.projeto.toLowerCase())) &&
-        (!filtros.id_financiador || projeto.id_financiador == filtros.id_financiador) &&
-        (!filtros.id_area_tecnologica || projeto.id_area_tecnologica == filtros.id_area_tecnologica) &&
-        (!filtros.coordenador || projeto.coordenador.toLowerCase().includes(filtros.coordenador.toLowerCase())) &&
         (!filtros.inicio_vigencia || new Date(projeto.inicio_vigencia) >= new Date(filtros.inicio_vigencia)) &&
         (!filtros.fim_vigencia || new Date(projeto.fim_vigencia) <= new Date(filtros.fim_vigencia)) &&
         (ativoBoolean === null || projeto.ativo === ativoBoolean)
@@ -74,6 +65,7 @@ export class PesquisaProjetosComponent implements OnInit {
 
   limparFiltros(): void {
     this.pesquisaForm.reset();
+    this.projetosFiltrados = [...this.projetos];
     this.exibirResultados = false; 
   }
 

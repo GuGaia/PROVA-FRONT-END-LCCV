@@ -8,21 +8,13 @@
         <input id="projeto" type="text" class="form-control" formControlName="projeto">
       </div>
       <div class="col-md-4">
-        <label for="coordenador" class="form-label">Coordenador</label>
-        <input id="coordenador" type="text" class="form-control" formControlName="coordenador">
+        <label for="ativo" class="form-label">Status</label>
+        <select id="ativo" class="form-control" formControlName="ativo">
+          <option value="">Todos</option>
+          <option value="true">Ativo</option>
+          <option value="false">Inativo</option>
+        </select>
       </div>
-      <div class="col-md-4">
-        <label for="id_financiador" class="form-label">Financiador</label>
-        <input id="id_financiador" type="number" class="form-control" formControlName="id_financiador">
-      </div>
-    </div>
-
-    <div class="row mt-3">
-      <div class="col-md-4">
-        <label for="id_area_tecnologica" class="form-label">Área Tecnológica</label>
-        <input id="id_area_tecnologica" type="number" class="form-control" formControlName="id_area_tecnologica">
-      </div>
-
       <fieldset class="border p-3 mt-3">
         <legend class="w-auto">Vigência</legend>
         <div class="row">
@@ -37,18 +29,6 @@
         </div>
       </fieldset>
     </div>
-
-    <div class="row mt-3">
-      <div class="col-md-4">
-        <label for="ativo" class="form-label">Status</label>
-        <select id="ativo" class="form-control" formControlName="ativo">
-          <option value="">Todos</option>
-          <option value="true">Ativo</option>
-          <option value="false">Inativo</option>
-        </select>
-      </div>
-    </div>
-
     <div class="mt-4">
       <button type="submit" class="btn btn-primary">Buscar</button>
       <button type="button" class="btn btn-secondary ms-2" (click)="limparFiltros()">Limpar</button>
