@@ -1,0 +1,14 @@
+<div class="container">
+  <h2>Detalhes do Projeto</h2>
+  <p><strong>Nome:</strong> {{ projeto.projeto }}</p>
+  <p><strong>Coordenador:</strong> {{ projeto.coordenador }}</p>
+  <p><strong>Financiador:</strong> {{ projeto.id_financiador }}</p>
+  <p><strong>Área Tecnológica:</strong> {{ projeto.id_area_tecnologica }}</p>
+  <p><strong>Início:</strong> {{ projeto.inicio_vigencia | date: 'dd/MM/yyyy' }}</p>
+  <p><strong>Fim:</strong> {{ projeto.fim_vigencia | date: 'dd/MM/yyyy' }}</p>
+  <p><strong>Status:</strong> 
+    <span [class.text-success]="projeto.ativo" [class.text-danger]="!projeto.ativo">
+      {{ projeto.ativo ? 'Ativo' : 'Inativo' }}
+    </span>
+  </p>
+</div>

@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup,  ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProjetoService } from '../../services/projeto.service';
 import { Projeto } from '../../models/projeto.model';
+import { Router } from '@angular/router';
+import { ListaModal } from '../../components/listaModal/listaModal.component';
+
 
 @Component({
   selector: 'app-pesquisa-projetos',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ListaModal],
   templateUrl: './pesquisa-projetos.component.html',
   styleUrls: ['./pesquisa-projetos.component.scss']
 })
@@ -15,10 +18,12 @@ export class PesquisaProjetosComponent implements OnInit {
   pesquisaForm!: FormGroup;
   projetos: Projeto[] = [];
   projetosFiltrados: Projeto[] = [];
+  exibirResultados = false; 
 
   constructor(
     private fb: FormBuilder,
-    private projetoService: ProjetoService
+    private projetoService: ProjetoService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -37,17 +42,22 @@ export class PesquisaProjetosComponent implements OnInit {
 
   carregarProjetos(): void {
     this.projetoService.listarProjetos().subscribe((dados) => {
-      this.projetos = dados;
-      this.projetosFiltrados = dados;
+      this.projetos = [];
+      dados.forEach(projetoResumo => {
+        this.projetoService.visualizarProjeto(projetoResumo.id_projeto).subscribe((projetoDetalhado) => {
+          this.projetos.push(projetoDetalhado);
+          this.projetosFiltrados = [...this.projetos];
+        });
+      });
     });
   }
+  
 
   filtrarProjetos(): void {
     const filtros = this.pesquisaForm.value;
-  
+    const ativoBoolean = filtros.ativo === 'true' ? true : filtros.ativo === 'false' ? false : null;
+
     this.projetosFiltrados = this.projetos.filter(projeto => {
-      const ativoBoolean = filtros.ativo === 'true' ? true : filtros.ativo === 'false' ? false : null;
-  
       return (
         (!filtros.projeto || projeto.projeto.toLowerCase().includes(filtros.projeto.toLowerCase())) &&
         (!filtros.id_financiador || projeto.id_financiador == filtros.id_financiador) &&
@@ -58,11 +68,17 @@ export class PesquisaProjetosComponent implements OnInit {
         (ativoBoolean === null || projeto.ativo === ativoBoolean)
       );
     });
+
+    this.exibirResultados = true;  
   }
-  
 
   limparFiltros(): void {
     this.pesquisaForm.reset();
-    this.projetosFiltrados = [...this.projetos];
+    this.exibirResultados = false; 
   }
+
+  fecharResultados(): void {
+    this.exibirResultados = false;  
+  }
+
 }

@@ -1,86 +1,64 @@
 <div class="container">
-    <h2>Pesquisa de Projetos</h2>
-  
-    <form [formGroup]="pesquisaForm" (ngSubmit)="filtrarProjetos()">
-      <div class="row">
-        <div class="col-md-4">
-          <label for="projeto" class="form-label">Nome do Projeto</label>
-          <input id="projeto" type="text" class="form-control" formControlName="projeto">
-        </div>
-        <div class="col-md-4">
-          <label for="coordenador" class="form-label">Coordenador</label>
-          <input id="coordenador" type="text" class="form-control" formControlName="coordenador">
-        </div>
-        <div class="col-md-4">
-          <label for="id_financiador" class="form-label">Financiador</label>
-          <input id="id_financiador" type="number" class="form-control" formControlName="id_financiador">
-        </div>
+  <h2>Pesquisa de Projetos</h2>
+
+  <form [formGroup]="pesquisaForm" (ngSubmit)="filtrarProjetos()">
+    <div class="row">
+      <div class="col-md-4">
+        <label for="projeto" class="form-label">Nome do Projeto</label>
+        <input id="projeto" type="text" class="form-control" formControlName="projeto">
       </div>
-  
-      <div class="row mt-3">
-        <div class="col-md-4">
-          <label for="id_area_tecnologica" class="form-label">Área Tecnológica</label>
-          <input id="id_area_tecnologica" type="number" class="form-control" formControlName="id_area_tecnologica">
-        </div>
-        <div class="col-md-4">
-          <label for="inicio_vigencia" class="form-label">Início Vigência</label>
-          <input id="inicio_vigencia" type="date" class="form-control" formControlName="inicio_vigencia">
-        </div>
-        <div class="col-md-4">
-          <label for="fim_vigencia" class="form-label">Fim Vigência</label>
-          <input id="fim_vigencia" type="date" class="form-control" formControlName="fim_vigencia">
-        </div>
+      <div class="col-md-4">
+        <label for="coordenador" class="form-label">Coordenador</label>
+        <input id="coordenador" type="text" class="form-control" formControlName="coordenador">
       </div>
-  
-      <div class="row mt-3">
-        <div class="col-md-4">
-          <label for="ativo" class="form-label">Status</label>
-          <select id="ativo" class="form-control" formControlName="ativo">
-            <option value="">Todos</option>
-            <option [value]="true">Ativo</option>
-            <option [value]="false">Inativo</option>
-          </select>
-        </div>
+      <div class="col-md-4">
+        <label for="id_financiador" class="form-label">Financiador</label>
+        <input id="id_financiador" type="number" class="form-control" formControlName="id_financiador">
       </div>
-  
-      <div class="mt-4">
-        <button type="submit" class="btn btn-primary">Buscar</button>
-        <button type="button" class="btn btn-secondary ms-2" (click)="limparFiltros()">Limpar</button>
-      </div>
-    </form>
-  
-    <div class="mt-5">
-      <h3>Resultados</h3>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Coordenador</th>
-            <th>Financiador</th>
-            <th>Área Tecnológica</th>
-            <th>Início</th>
-            <th>Fim</th>
-            <th>Valor</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let projeto of projetosFiltrados">
-            <td>{{ projeto.projeto }}</td>
-            <td>{{ projeto.coordenador }}</td>
-            <td>{{ projeto.id_financiador }}</td>
-            <td>{{ projeto.id_area_tecnologica }}</td>
-            <td>{{ projeto.inicio_vigencia | date: 'dd/MM/yyyy' }}</td>
-            <td>{{ projeto.fim_vigencia | date: 'dd/MM/yyyy' }}</td>
-            <td>R$ {{ projeto.valor | number:'1.2-2' }}</td>
-            <td>
-              <span [class.text-success]="projeto.ativo" [class.text-danger]="!projeto.ativo">
-                {{ projeto.ativo ? 'Ativo' : 'Inativo' }}
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
-  </div>
-  
+
+    <div class="row mt-3">
+      <div class="col-md-4">
+        <label for="id_area_tecnologica" class="form-label">Área Tecnológica</label>
+        <input id="id_area_tecnologica" type="number" class="form-control" formControlName="id_area_tecnologica">
+      </div>
+
+      <fieldset class="border p-3 mt-3">
+        <legend class="w-auto">Vigência</legend>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="inicio_vigencia" class="form-label">Início</label>
+            <input id="inicio_vigencia" type="date" class="form-control" formControlName="inicio_vigencia">
+          </div>
+          <div class="col-md-6">
+            <label for="fim_vigencia" class="form-label">Fim</label>
+            <input id="fim_vigencia" type="date" class="form-control" formControlName="fim_vigencia">
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-4">
+        <label for="ativo" class="form-label">Status</label>
+        <select id="ativo" class="form-control" formControlName="ativo">
+          <option value="">Todos</option>
+          <option value="true">Ativo</option>
+          <option value="false">Inativo</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <button type="submit" class="btn btn-primary">Buscar</button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="limparFiltros()">Limpar</button>
+    </div>
+  </form>
+</div>
+<app-projeto-modal
+  [projetos]="projetosFiltrados"
+  [exibirResultados]="exibirResultados"
+  (fechar)="fecharResultados()"
+></app-projeto-modal>
+
+

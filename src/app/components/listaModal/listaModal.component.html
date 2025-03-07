@@ -1,0 +1,41 @@
+<div *ngIf="exibirResultados" class="modal-overlay">
+  <div class="modal-content">
+    <h3>Resultados da Pesquisa</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Status</th>
+          <th>Vigência</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let projeto of projetos">
+          <td>{{ projeto.projeto }}</td>
+          <td>
+            <span [class.text-success]="projeto.ativo" [class.text-danger]="!projeto.ativo">
+              {{ projeto.ativo ? 'Ativo' : 'Inativo' }}
+            </span>
+          </td>
+          <td>{{ projeto.inicio_vigencia | date: 'dd/MM/yyyy' }} - {{ projeto.fim_vigencia | date: 'dd/MM/yyyy' }}</td>
+          <td>
+            <button class="btn btn-sm btn-info" (click)="visualizarProjeto(projeto.id_projeto)">
+              <i class="fas fa-search"></i>
+            </button>
+            <button class="btn btn-sm btn-warning" (click)="editarProjeto(projeto.id_projeto)">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+            <button class="btn btn-sm btn-success" (click)="ativarProjeto(projeto.id_projeto)" [disabled]="projeto.ativo">
+              <i class="fas fa-check"></i>
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="inativarProjeto(projeto.id_projeto)" [disabled]="!projeto.ativo">
+              <i class="fas fa-times"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-danger" (click)="fecharModal()">Fechar</button>
+  </div>
+</div>

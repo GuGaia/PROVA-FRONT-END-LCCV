@@ -6,7 +6,6 @@ export interface Projeto {
     coordenador: string;  
     ativo: boolean; 
     inicio_vigencia: Date;  
-    fim_vigencia: Date; 
-    valor: number; 
+    fim_vigencia: Date;  
   }
   

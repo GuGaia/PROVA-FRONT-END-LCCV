@@ -8,8 +8,8 @@ import { Projeto } from '../../models/projeto.model';
   selector: 'app-detalhes-projeto',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './detalhes-projeto.component.html',
-  styleUrl: './detalhes-projeto.component.css'
+  templateUrl: './detalhe.component.html',
+  styleUrl: './detalhe.component.css'
 })
 export class DetalhesProjetoComponent implements OnInit {
   projeto!: Projeto;
